@@ -1,0 +1,90 @@
+CREATE TABLE wings
+(
+    w_id int not null,    
+    w_name varchar(100) not null,
+    w_tot_flat int not null,
+    PRIMARY KEY(w_id)
+);    
+
+CREATE TABLE flats
+(
+    f_id int not null,
+    f_name varchar(100) not null,
+    w_id int not null,        
+    PRIMARY KEY(f_id),
+    FOREIGN KEY (w_id) REFERENCES wings(w_id)
+);    
+
+CREATE TABLE notice
+(
+    n_id int not null,    
+    n_msg varchar(100) not null,
+    n_date varchar(100) not null,
+    PRIMARY KEY(n_id)
+);    
+
+CREATE TABLE staff
+(
+    s_id int not null,
+    s_name varchar(100) not null,
+    s_gnd varchar(100) not null,
+    s_marrital_status varchar(100) not null,
+    s_phno int not null,
+    s_addr varchar(100) not null,
+    s_reg_status varchar(100) not null,
+    s_position varchar(100) not null,
+    PRIMARY KEY(s_id)
+);    
+
+CREATE TABLE owner
+(
+    o_id int not null,
+    o_name varchar(100) not null,
+    o_gnd varchar(100) not null,
+    o_marrital_status varchar(100) not null,
+    o_phno int not null,
+    o_addr varchar(100) not null,
+    o_reg_status varchar(100) not null,
+    f_id int not null,
+    o_uname varchar(100) not null,
+    o_pwd varchar(100) not null,
+    PRIMARY KEY(o_id),
+    FOREIGN KEY (f_id) REFERENCES flats(f_id)
+);    
+
+CREATE TABLE member
+(
+    m_id int not null,
+    m_name varchar(100) not null,
+    m_gnd varchar(100) not null,
+    m_relation varchar(100) not null,
+    m_email varchar(100) not null,
+    m_phno int not null,
+	m_reg_status varchar(100) not null,
+    PRIMARY KEY(m_id),
+    o_id int not null,
+	FOREIGN KEY (o_id) REFERENCES owner(o_id)    
+);   
+
+CREATE TABLE vehicle
+(
+    v_id int not null,
+    v_owner_name varchar(100) not null,
+    v_model varchar(100) not null,
+    v_rto_name varchar(100) not null,
+    v_reg_date varchar(100) not null,
+    v_reg_no varchar(100) not null,
+    PRIMARY KEY(v_id),
+    o_id int not null,
+	FOREIGN KEY (o_id) REFERENCES owner(o_id)    
+);   
+
+CREATE TABLE complaint
+(
+    c_id int not null,    
+    c_dec varchar(100) not null,
+    c_status varchar(100) not null,
+    PRIMARY KEY(c_id),
+    o_id int not null,
+    FOREIGN KEY (o_id) REFERENCES owner(o_id)    
+); 
